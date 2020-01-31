@@ -25,7 +25,7 @@ class Template {
 
     $this->ci->load->view("template/head",$data,$return);
     $this->ci->load->view("template/header",$data, $return);
-    $this->ci->load->view($view,$data,$return);
+    $this->ci->load->view($view .'.php',$data,$return);
     $this->ci->load->view("template/footer",$data, $return);
 
   }
