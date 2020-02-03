@@ -10,4 +10,17 @@ class Individus_model extends CI_Model{
 
     return $query->row();
   }
+
+  public function addIndividu(){
+    $data = array(
+      'Prenom' => $this->input->post('Prenom'),
+      'Nom' => $this->input->post('Nom'),
+      'Courriel' => $this->input->post('Courriel'),
+      'MotDePasse' => $this->input->post('MotDePasse'),
+      'Etat' => 'ATTENT',
+      'DateInscription' => date('Y-m-d H:i:s', time()),
+    );
+
+    $this->db->insert('Individus', $data);
+  }
 }

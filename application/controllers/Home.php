@@ -19,13 +19,10 @@
       if($indiv){
 
         $this->load->library('encryption');
-        $this->encryption->initialize(
-          array('cipher' => 'aes-256')
-        );
 
-        $encryptedPW = $this->post->input('MotDePasse');
+        $encryptedPW = $this->encryption->decrypt( $indiv->MotDePasse );
 
-        if($indiv->MotDePasse === $encryptedPW){
+        if($this->input->post('MotDePasse') === $encryptedPW){
           $data = array(
             'indiv'  => $indiv,
             'logged_in' => TRUE
@@ -57,17 +54,13 @@
 
     }
 
-    public function register(){
-      $this->template->load('individus/register');
-    }
-
     public function resetpw(){
       echo '<h1>resetpw</h1>';
     }
 
     public function logout(){
 
-      sess_destroy();
+      $this->session->sess_destroy();
       redirect('home','refresh');
     }
 
