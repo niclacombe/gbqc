@@ -15,6 +15,7 @@
 
       if ($this->form_validation->run() == FALSE){
         $this->template->load('individus/register');
+        return;
       }
       else{
         $this->load->model('individus_model');
@@ -25,19 +26,16 @@
 
         $result = $this->individus_model->addIndividu();
         
-        if($result){
-          $data = array(
-            'msg' => array(
-              'register_success' => "Merci! Un courriel a été envoyé à l'adresse <em>" .$_POST['MotDePasse'] ."</em>.<br>Veuillez consulter vos courriels pour activer votre compte.";
-            )
-          );
-        else{
-          $data = array(
-            'error' => array(
-              'register_failed' => "Une erreur est survenu à la création de votre compte. Veuillez contactez l'administrateur.";
-            )
-          );
-        }
+        $message = "Bonjour " .$_POST['Prenom'] .",<br>";
+        $message .= 'Merci de vous êtes inscris à SITE_NAME. Pour valider votre compte, veuillez cliquer sur <a href="' .site_url('Individus/validate/' . $_POST['Courriel']) .'">CE LIEN</a>.';
+
+        $sendEmail = $this->sendEmail($_POST['Courriel'], $message);
+
+        $data = array(
+          'msg' => array(
+            'register_success' => "Merci! Un courriel a été envoyé à l'adresse <em>" .$_POST['Courriel'] ."</em>.<br>Veuillez consulter vos courriels pour activer votre compte."
+          )
+        );
       }
 
       $this->template->load('home/home', $data);
@@ -45,6 +43,43 @@
 
     public function register(){
       $this->template->load('individus/register');
+    }
+
+    public function validate($email){
+      $this->load->model('individus_model');
+
+      $this->individus_model->validate($email);
+
+      $data = array(
+        'msg' => array(
+          'validate_success' => "Votre compte est maintenant validé. Bienvenue!"
+        )
+      );
+
+      $this->template->load('home/home', $data);
+
+    }
+
+    private function sendEmail($email, $message){
+      //var_dump($message); die;
+      $this->load->library('email');
+
+      $config = array(
+        'mailtype' => 'html',
+      );
+
+      $this->email->initialize($config);
+
+      $this->email->from('niclacombe@gmail.com', 'Nicolas Lacombe');
+      $this->email->to($email);
+
+      $this->email->subject('Inscription à SITE_NAME');
+      $this->email->message($message);
+
+      $this->email->send();
+
+
+      return true;
     }
   }
 ?>

@@ -23,4 +23,14 @@ class Individus_model extends CI_Model{
 
     $this->db->insert('Individus', $data);
   }
+
+  public function validate($email){
+
+    $data = array(
+      'Etat' => 'ACTIF',
+    );
+
+    $this->db->where('Courriel', $email);
+    $this->db->update('Individus', $data);
+  }
 }

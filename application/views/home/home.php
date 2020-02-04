@@ -9,6 +9,10 @@
           <h3>
             <?= $msg['register_success']; ?>
           </h3>
+        <?php elseif( isset($msg['validate_success'])) :?>
+          <h3>
+            <?= $msg['validate_success']; ?>
+          </h3>
         <?php endif; ?>
         <?php if( isset($error['register_failed']) ) :?>
           <h3>
@@ -42,8 +46,8 @@
         </div> 
       </div>
     <?php else: ?>
-      <div class="col-5 col-md-5">
-        <?php var_dump($this->session->userdata()); ?>
+      <div class="col-10 col-md-10">
+        <h4>Bienvenue <?= $this->session->userdata('indiv')->Prenom .' ' .$this->session->userdata('indiv')->Nom; ?></h4>
       </div>
     <?php endif; ?>
     
