@@ -30,3 +30,21 @@ section.resume-section {
   font-size: 14px;
   color: $red;
 }
+
+nav{
+  img.img-profile{
+    width: 136px;
+    height: auto;
+    border: none !important;
+  }
+
+  .dropdown-menu{
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
+
+    .dropdown-item{
+      color: rgba(255,255,255,0.5);
+    }
+  }
+}

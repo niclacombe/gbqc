@@ -31,6 +31,7 @@
           $this->session->set_userdata($data);
 
           $this->template->load('home/home');
+          return;
         } else{
           //WRONG PW
           $data = array(

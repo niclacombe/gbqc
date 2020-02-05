@@ -70,10 +70,10 @@
 
       $this->email->initialize($config);
 
-      $this->email->from('niclacombe@gmail.com', 'Nicolas Lacombe');
+      $this->email->from('gbqc@niclacombe.ca', 'Nicolas Lacombe');
       $this->email->to($email);
 
-      $this->email->subject('Inscription à SITE_NAME');
+      $this->email->subject('Inscription à Guildball Québec');
       $this->email->message($message);
 
       $this->email->send();
