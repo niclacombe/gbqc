@@ -15,7 +15,9 @@
       $this->db->where('IdGuilde2', $idGuilde);
       $query2 = $this->db->get('Joueurs');
 
-      $return .= $query2->result();
+      if( !empty($query2->result()) ){
+        array_push($return, $query2->result());
+      }
 
       return $return;
 

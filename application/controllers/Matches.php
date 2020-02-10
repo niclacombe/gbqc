@@ -28,20 +28,65 @@ class Matches extends CI_Controller {
 
     $this->form_validation->set_rules('Score1', 'Score du joueur 1', 'required|is_natural|greater_than_equal_to[0]|less_than_equal_to[12]');
     $this->form_validation->set_rules('Score2', 'Score du joueur 2', 'required|is_natural|greater_than_equal_to[0]|less_than_equal_to[12]');
+
+    $this->form_validation->set_rules('ListIndiv1[]', 'Liste du joueur 1', 'callback__validate_lists');
+
+    $this->form_validation->set_rules('ListIndiv2[]', 'Liste du joueur 2', 'callback__validate_lists');
+
+    $_POST['ListIndiv1'] = implode(',',$_POST['ListIndiv1']);
+    $_POST['ListIndiv2'] = implode(',',$_POST['ListIndiv2']);
     
 
     if ($this->form_validation->run() == FALSE){
-      $this->template->load('matches/addMatch');
+      $individus = $this->load->model('individus_model');
+      $data['individus'] = $this->individus_model->getUsers();
+
+      $this->load->model('guildes_model');
+      $data['guildes'] = $this->guildes_model->getGuildes();
+      
+      $this->template->load('matches/addMatch', $data);
       return;
     } else{
+      $individus = $this->load->model('matches_model');
       $this->matches_model->addMatch();
+
+      $individus = $this->load->model('individus_model');
+      $data['individus'] = $this->individus_model->getUsers();
+
+      $this->load->model('guildes_model');
+      $data['guildes'] = $this->guildes_model->getGuildes();
+
+      redirect('matches/myMatches/' . $this->session->userdata('indiv')->Id, 'refresh');
     }    
   }
 
-  public function ajax_getJoueurs($idGuilde){
+  function _validate_lists($list){
+    $listLength = count(explode(',', $list) );
+
+    if($listLength != 6){
+      $this->form_validation->set_message('_validate_lists', 'This list must be 6 players long.');
+      return false;
+    } else{
+      return true;
+    }
+  }
+
+  public function myMatches($idIndividu){
+    $data = array(
+      'matches' => $this->matches_model->getMatchesByIndividu($idIndividu)
+    );
+
+    $this->template->load('matches/myMatches', $data);
+  }
+
+  public function ajax_getJoueurs(){
     $this->load->model('joueurs_model');
 
+    $idGuilde = $this->input->post('idGuilde');
+
     $joueurs = $this->joueurs_model->getJoueursByGuilde($idGuilde);
+
+    echo json_encode($joueurs);
   }
 
 

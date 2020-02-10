@@ -15,6 +15,18 @@ class Matches_model extends CI_Model {
       'ListIndiv2' => $this->input->post('ListIndiv2'),
       'DateCreation' => date('Y-m-d H:i:s', time()),
     );
+
+    $this->db->insert('Matches', $data);
+  }
+
+  public function getMatchesByIndividu($idIndividu){
+    $this->db->where('IdIndiv1', $idIndividu);
+    $this->db->or_where('IdIndiv2', $idIndividu);
+    $this->db->order_by('DateCreation', 'ASC');
+
+    $query = $this->db->get('Matches');
+
+    return $query->result();
   }
 }
 

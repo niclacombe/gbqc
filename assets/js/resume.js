@@ -37,4 +37,47 @@
     no_results_text: "Aucune correspondance",
   });
 
+  //Get Joueurs AJAX  $(function(){
+  $('.select_guilde').on('change',function(){
+    var target = $(this).attr('data-target'),
+        idGuilde = $(this).find('option:selected').val();
+
+    getJoueurs(idGuilde, target);
+  });
+
 })(jQuery); // End of use strict
+
+function getJoueurs(idGuilde, target){
+  $.ajax({
+    'url' : "/matches/ajax_getJoueurs",
+    'method' : 'POST',
+    'data' : {
+      'idGuilde' : idGuilde,
+    },
+    'success' : function(data){
+      var data = (JSON.parse(data)),
+          html = '';
+
+      $.each(data, function(index, el){
+        html += '<option value="' + el.Id +'">';
+        html += el.Nom;
+        if(el.Position == 'CAPTAI'){
+          html += ' (Captain)';
+        }else if(el.Position == 'MASCOT'){
+          html += ' (Mascot)';
+        }else if(el.Position == 'MASTER'){
+          html += ' (Master)';
+        }else if(el.Position == 'APPREN'){
+          html += ' (Apprentice)';
+        }
+        html +='</option>';
+      });
+
+      $('#' + target).html(html);
+
+    },
+    'error' : function(err){
+      console.log(err);
+    }
+  });
+}

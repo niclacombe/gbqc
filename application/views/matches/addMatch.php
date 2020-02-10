@@ -4,6 +4,8 @@
     
     <h2>Inscrire une partie</h2>
 
+    <?php echo validation_errors(); ?>
+
     <div class="login-form addMatch__form col-12 col-md-6">
       <?= form_open('matches/addMatch'); ?>
         <div class="form-row">
@@ -38,8 +40,8 @@
             </div>
 
             <div>
-              <label for="ListIndiv1">Liste du joueur 1 <?= form_error('ListIndiv1', '<span class="form-error"> - ', '</span>'); ?></label>
-              <select id="ListIndiv1" name="ListIndiv1" multiple class="form-control select_joueurs">
+              <label for="ListIndiv1">Liste du joueur 1 <?= form_error('ListIndiv[]', '<span class="form-error"> - ', '</span>'); ?></label>
+              <select id="ListIndiv1" name="ListIndiv1[]" multiple="multiple" class="form-control select_joueurs">
               </select>
             </div>
           </div>
@@ -55,8 +57,8 @@
             </div>
 
             <div>
-              <label for="ListIndiv2">Liste du joueur 1 <?= form_error('ListIndiv2', '<span class="form-error"> - ', '</span>'); ?></label>
-              <select id="ListIndiv2" name="ListIndiv2" multiple class="form-control select_joueurs">
+              <label for="ListIndiv2">Liste du joueur 1 <?= form_error('ListIndiv2[]', '<span class="form-error"> - ', '</span>'); ?></label>
+              <select id="ListIndiv2" name="ListIndiv2[]" multiple="multiple" class="form-control select_joueurs">
               </select>
             </div>
             
@@ -82,30 +84,3 @@
   </section>
 
 </div>
-
-<script>
-  $(function(){
-    $('.select_guilde').on('change',function(){
-      var target = $(this).attr('data-target'),
-          idGuilde = $(this).find('option :selected').val();
-
-      getJoueurs(idGuilde, target);
-    });
-
-    getJoueurs(idGuilde, target){
-      $.ajax({
-        'url' : '',
-        'method' : POST,
-        'data' : {
-
-        },
-        'success' : function(data){
-          console.log(data);
-        },
-        'error' : function(err){
-          console.log(err);
-        }
-      });
-    }
-  });
-</script>
