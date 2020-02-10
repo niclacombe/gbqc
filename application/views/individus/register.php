@@ -1,6 +1,8 @@
 <div class="container-fluid p-0">
 
-  <section class="resume-section p-3 p-lg-5 d-flex align-items-center">
+  <section class="resume-section p-3 p-lg-5 d-flex flex-column">
+
+    <h2>S'inscrire</h2>
     
     <div class="login-form  col-12 col-md-6">
       <?= form_open('individus/addIndividu'); ?>

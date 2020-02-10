@@ -48,6 +48,14 @@
     <?php else: ?>
       <div class="col-10 col-md-10">
         <h4>Bienvenue <?= $this->session->userdata('indiv')->Prenom .' ' .$this->session->userdata('indiv')->Nom; ?></h4>
+        <?php 
+        if( $this->session->userdata('indiv')->Etat != 'ACTIF' ):
+          if(isset($msg['validate_email'])){
+            echo '<p>' . $msg['validate_email'] . '</p>';
+          }
+        ?>
+          <p>Votre compte n'a pas été activé. Veuillez consulter vos courriels pour l'activer. <a href="<?= site_url('individus/sendEmail/' . $this->session->userdata('indiv')->Courriel) . '/validate' ; ?>">Renvoyer le courriel</a></p>
+        <?php endif; ?>
       </div>
     <?php endif; ?>
     

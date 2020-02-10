@@ -25,11 +25,8 @@
         $_POST['MotDePasse'] = $this->encryption->encrypt( $_POST['MotDePasse'] );
 
         $result = $this->individus_model->addIndividu();
-        
-        $message = "Bonjour " .$_POST['Prenom'] .",<br>";
-        $message .= 'Merci de vous êtes inscris à SITE_NAME. Pour valider votre compte, veuillez cliquer sur <a href="' .site_url('Individus/validate/' . $_POST['Courriel']) .'">CE LIEN</a>.';
 
-        $sendEmail = $this->sendEmail($_POST['Courriel'], $message);
+        $sendEmail = $this->sendEmail($_POST['Courriel'], 'validate', false);
 
         $data = array(
           'msg' => array(
@@ -48,7 +45,7 @@
     public function validate($email){
       $this->load->model('individus_model');
 
-      $this->individus_model->validate($email);
+      $this->individus_model->validateUser($email);
 
       $data = array(
         'msg' => array(
@@ -56,13 +53,24 @@
         )
       );
 
+      $indiv = $this->individus_model->getUserByEmail($email);
+      $data = array(
+        'indiv'  => $indiv,
+        'logged_in' => TRUE
+      );
+
+      $this->session->set_userdata($data);
+
       $this->template->load('home/home', $data);
 
     }
 
-    private function sendEmail($email, $message){
-      //var_dump($message); die;
+    public function sendEmail($email, $message, $home = true){
       $this->load->library('email');
+
+      $vMessages = array(
+        'validate' => 'Bonjour,<br>Merci de vous êtes inscris à Guildball Québec. Pour valider votre compte, veuillez cliquer sur <a href="' .site_url('Individus/validate/' . $email) .'">CE LIEN</a>.',
+      );
 
       $config = array(
         'mailtype' => 'html',
@@ -74,12 +82,21 @@
       $this->email->to($email);
 
       $this->email->subject('Inscription à Guildball Québec');
-      $this->email->message($message);
+      $this->email->message($vMessages[$message]);
 
       $this->email->send();
 
 
-      return true;
+      if(!$home){
+        return true;
+      } else {
+        $data = array(
+          'msg' => array(
+            'validate_email' => 'Courriel de validation renvoyé'
+          )
+        );
+        $this->template->load('home/home', $data);
+      }
     }
   }
 ?>

@@ -24,7 +24,7 @@ class Individus_model extends CI_Model{
     $this->db->insert('Individus', $data);
   }
 
-  public function validate($email){
+  public function validateUser($email){
 
     $data = array(
       'Etat' => 'ACTIF',
@@ -32,5 +32,16 @@ class Individus_model extends CI_Model{
 
     $this->db->where('Courriel', $email);
     $this->db->update('Individus', $data);
+  }
+
+  public function getUsers(){
+
+    $this->db->where('Etat', 'ACTIF');
+    $this->db->order_by('Nom', 'ASC');
+
+    $query = $this->db->get('Individus');
+
+    return $query->result();
+
   }
 }

@@ -1,0 +1,16 @@
+.addMatch{
+  &__form{
+    .chosen-container{
+      display: block;
+      font-size: 1rem;
+      
+      .chosen-single{
+        box-shadow: none;
+        border: none;
+        background: transparent;
+        padding: 0;
+      }  
+    }
+    
+  }
+}
