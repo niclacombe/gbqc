@@ -3,6 +3,14 @@
   
   class Individus extends CI_Controller {
 
+
+    public function __construct(){
+      parent::__construct();
+      if( is_null($this->session->userdata('indiv')) ){
+        redirect('home','refresh');
+      }
+    }
+
     public function addIndividu(){
       $this->load->library('form_validation');
 

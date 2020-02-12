@@ -21,6 +21,9 @@
   <!-- Chosen Library -->
   <link href="<?= site_url(); ?>assets/css/chosen.min.css" rel="stylesheet">
 
+  <!-- OWL Library -->
+  <link href="<?= site_url(); ?>assets/css/flickity.min.css" rel="stylesheet">
+
   <!-- Custom styles for this template -->
   <link href="<?= site_url(); ?>assets/css/resume.min.css" rel="stylesheet">
 

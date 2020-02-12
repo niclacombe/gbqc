@@ -18,7 +18,7 @@
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
               <a class="dropdown-item" href="<?= site_url('matches/view_addMatch'); ?>">Inscrire une partie</a>
-              <a class="dropdown-item" href="#">Mes parties</a>
+              <a class="dropdown-item" href="<?= site_url('matches/myMatches/' . $this->session->userdata('indiv')->Id); ?>">Mes parties</a>
               <a class="dropdown-item" href="#">Rechercher une partie</a>
             </div>
           </li>

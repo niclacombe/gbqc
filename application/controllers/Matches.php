@@ -6,10 +6,14 @@ class Matches extends CI_Controller {
   public function __construct(){
     parent::__construct();
     $this->load->model('matches_model');
+
+    /*if( is_null($this->session->userdata('indiv')) ){
+      redirect('home','refresh');
+    }*/
   }
 
   public function view_addMatch(){
-    $individus = $this->load->model('individus_model');
+    $this->load->model('individus_model');
     $data['individus'] = $this->individus_model->getUsers();
 
     $this->load->model('guildes_model');
@@ -32,6 +36,8 @@ class Matches extends CI_Controller {
     $this->form_validation->set_rules('ListIndiv1[]', 'Liste du joueur 1', 'callback__validate_lists');
 
     $this->form_validation->set_rules('ListIndiv2[]', 'Liste du joueur 2', 'callback__validate_lists');
+
+    $this->form_validation->set_rules('DateJoue', 'Date Jouée', 'callback__validate_date');
 
     $_POST['ListIndiv1'] = implode(',',$_POST['ListIndiv1']);
     $_POST['ListIndiv2'] = implode(',',$_POST['ListIndiv2']);
@@ -71,12 +77,59 @@ class Matches extends CI_Controller {
     }
   }
 
+  function _validate_date($date){
+    if(strtotime($date) > time() ){
+      $this->form_validation->set_message('_validate_date', "You can't select a date in the future");
+      return false;
+    } else{
+      return true;
+    }
+  }
+
   public function myMatches($idIndividu){
+    $return = array();
+
+    $matches = $this->matches_model->getMatchesByIndividu($idIndividu);
+
+    $this->load->model('guildes_model');
+    $guildes = $this->guildes_model->getGuildes();
+
+    $this->load->model('individus_model');
+    $individus = $this->individus_model->getUsers();
+
+    foreach ($matches as $m) {
+      $indiv1 = $individus[array_search($m->IdIndiv1, array_column($individus, 'Id'))];
+      $indiv2 = $individus[array_search($m->IdIndiv2, array_column($individus, 'Id'))];
+
+      $guilde1 = $guildes[array_search($m->IdGuilde1, array_column($guildes, 'Id'))];
+      $guilde2 = $guildes[array_search($m->IdGuilde2, array_column($guildes, 'Id'))];
+
+      /*TO DO PLAYERS LIST*/
+
+      $return[] = array(
+        'Id' => $m->Id,
+        'DateJoue' => $m->DateJoue,
+        'IdIndiv1' => $indiv1,
+        'IdIndiv2' => $indiv2,
+        'IdGuilde1' => $guilde2,
+        'IdGuilde2' => $guilde1,
+        'Score1' => $m->Score1,
+        'Score2' => $m->Score2,
+      );
+    }
+
     $data = array(
-      'matches' => $this->matches_model->getMatchesByIndividu($idIndividu)
+      'fmtMatches' => $return
     );
 
+
+    
+
     $this->template->load('matches/myMatches', $data);
+  }
+
+  function listGenerator($strList){
+
   }
 
   public function ajax_getJoueurs(){

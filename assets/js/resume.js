@@ -4,7 +4,7 @@
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-resume/blob/master/LICENSE)
  */
 
-(function($) {
+$(document).ready(function() {
   "use strict"; // Start of use strict
 
   // Smooth scrolling using jQuery easing
@@ -45,7 +45,14 @@
     getJoueurs(idGuilde, target);
   });
 
-})(jQuery); // End of use strict
+  $('.flickity-results').flickity({
+    pageDots: false,
+    cellAlign: 'left',
+    wrapAround: true,
+    groupCells: 2
+  });
+
+}); // End of use strict
 
 function getJoueurs(idGuilde, target){
   $.ajax({

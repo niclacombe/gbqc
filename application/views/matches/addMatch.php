@@ -64,7 +64,6 @@
             
           </div>
         </div>
-        <hr>
         <div class="form-row">          
           <div class="col">
             <label for="Score1">Score du joueur 1 <?= form_error('Score1', '<span class="form-error"> - ', '</span>'); ?></label>
@@ -75,6 +74,14 @@
             <input type="number" class="form-control" name="Score2" min="0" max="12" step="1">
           </div>
         </div>
+        <hr>
+        <div class="form-row">          
+          <div class="col">
+            <label for="DateJoue">Score du joueur 1 <?= form_error('DateJoue', '<span class="form-error"> - ', '</span>'); ?></label>
+            <input type="date" class="form-control" name="DateJoue">
+          </div>
+        </div>
+
 
         <button class="mt-3 btn btn-primary">S'inscrire</button>
       <?= form_close(); ?>

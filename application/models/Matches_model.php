@@ -13,7 +13,7 @@ class Matches_model extends CI_Model {
       'Score2' => $this->input->post('Score2'),
       'ListIndiv1' => $this->input->post('ListIndiv1'),
       'ListIndiv2' => $this->input->post('ListIndiv2'),
-      'DateCreation' => date('Y-m-d H:i:s', time()),
+      'DateJoue' => $this->input->post('DateJoue'),
     );
 
     $this->db->insert('Matches', $data);
@@ -22,7 +22,7 @@ class Matches_model extends CI_Model {
   public function getMatchesByIndividu($idIndividu){
     $this->db->where('IdIndiv1', $idIndividu);
     $this->db->or_where('IdIndiv2', $idIndividu);
-    $this->db->order_by('DateCreation', 'ASC');
+    $this->db->order_by('DateJoue', 'ASC');
 
     $query = $this->db->get('Matches');
 
