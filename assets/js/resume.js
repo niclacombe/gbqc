@@ -45,11 +45,11 @@ $(document).ready(function() {
     getJoueurs(idGuilde, target);
   });
 
-  $('.flickity-results').flickity({
-    pageDots: false,
-    cellAlign: 'left',
-    wrapAround: true,
-    groupCells: 2
+  $('.slick-results').slick({
+    adaptiveHeight: true,
+    dots: false,
+    slidesToShow: 3,
+    slidesToScroll: 3
   });
 
 }); // End of use strict

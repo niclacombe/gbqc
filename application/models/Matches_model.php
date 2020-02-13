@@ -28,6 +28,14 @@ class Matches_model extends CI_Model {
 
     return $query->result();
   }
+
+  public function getMatches($limit=null){
+    $this->db->order_by('DateJoue', 'ASC');
+
+    $query = $this->db->get('Matches', $limit );
+
+    return $query->result();
+  }
 }
 
 /* End of file Matches_model.php */

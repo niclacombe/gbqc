@@ -7,9 +7,9 @@ class Matches extends CI_Controller {
     parent::__construct();
     $this->load->model('matches_model');
 
-    /*if( is_null($this->session->userdata('indiv')) ){
+    if( is_null($this->session->userdata('indiv')) ){
       redirect('home','refresh');
-    }*/
+    }
   }
 
   public function view_addMatch(){
@@ -113,6 +113,8 @@ class Matches extends CI_Controller {
         'IdIndiv2' => $indiv2,
         'IdGuilde1' => $guilde2,
         'IdGuilde2' => $guilde1,
+        'ListIndiv1' => $m->ListIndiv1,
+        'ListIndiv2' => $m->ListIndiv2,
         'Score1' => $m->Score1,
         'Score2' => $m->Score2,
       );
@@ -129,7 +131,20 @@ class Matches extends CI_Controller {
   }
 
   function listGenerator($strList){
+    $vJoueurs = explode(',', $strList);
 
+    if(is_null($strList)){
+      return null;
+    }
+    $this->load->model('joueurs_model');
+
+    $return = array();
+
+    foreach ($vJoueurs as $j) {
+      $return[] = $this->joueurs_model->getJoueurById($j);      
+    }
+
+    return $return;
   }
 
   public function ajax_getJoueurs(){

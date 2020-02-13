@@ -15,12 +15,24 @@
       $this->db->where('IdGuilde2', $idGuilde);
       $query2 = $this->db->get('Joueurs');
 
-      if( !empty($query2->result()) ){
-        array_push($return, $query2->result());
+      $complimentaryPlayers = $query2->result();
+
+      if( !empty($complimentaryPlayers) ){
+        foreach ($complimentaryPlayers as $cp) {
+          array_push($return, $cp);
+        }
       }
 
       return $return;
 
+    }
+
+    public function getJoueurById($idJoueur){
+      $this->db->where('Id', $idJoueur);
+
+      $query = $this->db->get('Joueurs');
+
+      return $query->row();
     }
 
    
