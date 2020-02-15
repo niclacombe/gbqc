@@ -52,6 +52,14 @@ $(document).ready(function() {
     slidesToScroll: 3
   });
 
+  $('.displayList').click(function(e){
+    e.preventDefault();
+
+    var target = $(this).attr('data-target');
+
+    $(target).modal('toggle');
+  })
+
 }); // End of use strict
 
 function getJoueurs(idGuilde, target){

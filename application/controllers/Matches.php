@@ -113,8 +113,8 @@ class Matches extends CI_Controller {
         'IdIndiv2' => $indiv2,
         'IdGuilde1' => $guilde2,
         'IdGuilde2' => $guilde1,
-        'ListIndiv1' => $m->ListIndiv1,
-        'ListIndiv2' => $m->ListIndiv2,
+        'ListIndiv1' => $this->listGenerator($m->ListIndiv1),
+        'ListIndiv2' => $this->listGenerator($m->ListIndiv2),
         'Score1' => $m->Score1,
         'Score2' => $m->Score2,
       );

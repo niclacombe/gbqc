@@ -40,10 +40,19 @@
       &__line{
         padding: 0.5rem 0;
         width: 100%;
+        display: flex;
+        align-items: center;
+
+
+        a{
+          text-align: center;
+          border-bottom: 1px solid $primary; 
+          border-top: 1px solid $primary; 
+        }
 
         .guildIcon{
           width: 2rem;
-          margin: 1rem 0.5rem 1rem 1rem;
+          margin: 0.5rem;
         }
 
         .score{

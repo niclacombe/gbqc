@@ -21,7 +21,7 @@
   <!-- Chosen Library -->
   <link href="<?= site_url(); ?>assets/css/chosen.min.css" rel="stylesheet">
 
-  <!-- OWL Library -->
+  <!-- Slick Library -->
   <link href="<?= site_url(); ?>assets/css/slick.css" rel="stylesheet">
   <link href="<?= site_url(); ?>assets/css/slick-theme.css" rel="stylesheet">
 
