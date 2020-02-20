@@ -67,14 +67,17 @@ class Matches extends CI_Controller {
   }
 
   function _validate_lists($list){
+    $valid = true;
     $listLength = count(explode(',', $list) );
 
     if($listLength != 6){
       $this->form_validation->set_message('_validate_lists', 'This list must be 6 players long.');
-      return false;
-    } else{
-      return true;
+      $valid = false;
     }
+
+    
+
+    return $valid;
   }
 
   function _validate_date($date){
@@ -104,8 +107,6 @@ class Matches extends CI_Controller {
       $guilde1 = $guildes[array_search($m->IdGuilde1, array_column($guildes, 'Id'))];
       $guilde2 = $guildes[array_search($m->IdGuilde2, array_column($guildes, 'Id'))];
 
-      /*TO DO PLAYERS LIST*/
-
       $return[] = array(
         'Id' => $m->Id,
         'DateJoue' => $m->DateJoue,
@@ -122,10 +123,7 @@ class Matches extends CI_Controller {
 
     $data = array(
       'fmtMatches' => $return
-    );
-
-
-    
+    );    
 
     $this->template->load('matches/myMatches', $data);
   }

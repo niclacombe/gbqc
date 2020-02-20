@@ -36,6 +36,15 @@ class Matches_model extends CI_Model {
 
     return $query->result();
   }
+
+
+  public function getMatchesByEvent($idEvent){
+    $this->db->where('IdEvent', $idEvent);
+
+    $query = $this->db->get('Matches');
+
+    return $query->result();
+  }
 }
 
 /* End of file Matches_model.php */

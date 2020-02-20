@@ -1,0 +1,9 @@
+.my-events{
+  &__view{
+    &__forms{
+      .manageForm{
+        display: none;
+      }
+    }
+  }
+}

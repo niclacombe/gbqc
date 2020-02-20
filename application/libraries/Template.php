@@ -24,7 +24,7 @@ class Template {
   public function load($view, $data = array(), $return = FALSE){
 
     $this->ci->load->view("template/head",$data,$return);
-    $this->ci->load->view("template/header",$data, $return);
+    $this->ci->load->view("template/nav",$data, $return);
     $this->ci->load->view($view .'.php',$data,$return);
     $this->ci->load->view("template/footer",$data, $return);
 

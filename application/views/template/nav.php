@@ -27,7 +27,8 @@
               Événements <span class="fas fa-calendar-alt"></span>
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" href="#">Mes événements</a>
+              <a class="dropdown-item" href="<?= site_url('events/myEvents/' . $this->session->userdata('indiv')->Id); ?>">Mes événements</a>
+              <a href="<?= site_url('events/view_addEvent');?>" class="dropdown-item">Ajouter un événement</a>
               <a class="dropdown-item" href="#">Rechercher un événement</a>
             </div>
           </li>

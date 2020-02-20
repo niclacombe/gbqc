@@ -52,12 +52,56 @@ $(document).ready(function() {
     slidesToScroll: 3
   });
 
+  /* DISPLAY TEAM LIST FOR A MATCH*/
   $('.displayList').click(function(e){
     e.preventDefault();
 
     var target = $(this).attr('data-target');
 
     $(target).modal('toggle');
+  })
+
+  /* FEED Indiv list for ADD/EDIT EVENTS*/
+  $('#IdIndividus').on('change', function(){
+    var html = '';
+
+    $('#IdIndividus option:selected').each(function(index, el) {
+      html += '<li>';
+      html += el.text;
+      html += '</li>';
+    });
+
+    $('#indivList').html(html);
+
+  });
+
+  $('.event-list').on('change', function(){
+    var html = '',
+        target = '#' + $(this).attr('data-listId');
+
+    $(this).find('option:selected').each(function(index, el) {
+      html += '<li>';
+      html += el.text;
+      html += '</li>';
+    });
+
+    $(target).html(html);
+  });
+
+  $('.editForms').on('click', function(){
+    var target = '#' + $(this).attr('data-target');
+
+    $('.my-events__view__forms form').hide();
+
+    $('.my-events__view__forms ' + target ).slideToggle();
+    $('.my-events__view__forms ' + target ).find('.chosen-container').css('width', '100%');
+  });
+
+  $('.viewEvent').on('click', function(){
+    var idEvent = $(this).attr('data-idEvent'),
+        target = '#viewEvent';
+
+    getClassement(idEvent, target);
   })
 
 }); // End of use strict
@@ -95,4 +139,45 @@ function getJoueurs(idGuilde, target){
       console.log(err);
     }
   });
+}
+
+function getClassement(idEvent, target){
+  $.ajax({
+    'url' : '/events/ajax_getClassement/' + idEvent,
+    'method' : 'GET',
+    'success' : function (data){
+      console.log(JSON.parse(data));
+      var data = JSON.parse(data),
+          html = '';
+
+      
+      html += "<h3>NOM DE L'ÉVÉNEMENT</h3>";
+      html += "<h4>Classement</h4>";
+
+      html += '<table class="table table-responsive table-striped">';
+      html += "<tr>";
+      html += "<th>Nom</th>";
+      html += "<th>V</th>";
+      html += "<th>D</th>";
+      html += "<th>PJ</th>";
+      html += "</tr>";
+
+      html += "<tr>";
+      html += "<th>Nom</th>";
+      html += "<th>V</th>";
+      html += "<th>D</th>";
+      html += "<th>PJ</th>";
+      html += "</tr>";
+
+            
+      html += "</table>";
+      
+     
+     $(target).html(html);
+     $(target).slideToggle();
+    },
+    'error' : function(err){
+      console.log(err);
+    }
+  })
 }

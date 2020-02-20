@@ -42,6 +42,31 @@ class Individus_model extends CI_Model{
     $query = $this->db->get('Individus');
 
     return $query->result();
-
   }
+
+  public function getUser($idIndiv){
+    $this->db->where('Id', $idIndiv);
+    $this->db->order_by('Nom', 'ASC');
+
+    $query = $this->db->get('Individus');
+
+    return $query->row();
+  }
+
+  public function getMatchesFromIndiv($idIndiv, $idEvent = null){
+
+    $where = "(IdIndiv1 = $idIndiv OR IdIndiv2 = $idIndiv)";
+
+    if(!is_null($idEvent)){
+      $where .= " AND IdEvent = $idEvent";
+    }
+
+    $this->db->where($where);
+
+    $query = $this->db->get('Matches');
+
+    return $query->result();
+  }
+
+  
 }
