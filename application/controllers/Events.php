@@ -17,6 +17,15 @@ class Events extends CI_Controller {
     $this->template->load('events/events',$data);
   }
 
+  public function getEvents(){
+
+    $this->db->order_by('Nom', 'ASC');
+
+    $query = $this->db->get('Events');
+
+    return $query->result();
+  }
+
   public function view_addEvent(){
     $this->load->model('individus_model');
     $data['individus'] = $this->individus_model->getUsers();
@@ -115,12 +124,14 @@ class Events extends CI_Controller {
           } else{
             $lost++;
           }
+          $team = $m->IdGuilde1;
         } else{
           if($m->Score1 > $m->Score2){
             $lost++;
           } else{
             $win++;
           }
+          $team = $m->IdGuilde2;
         }
       }
 
@@ -129,6 +140,7 @@ class Events extends CI_Controller {
         'Win' => $win,
         'Lost' => $lost,
         'GP' => count($matches),
+        'Team' => $team,
       );
     }
 
@@ -138,7 +150,9 @@ class Events extends CI_Controller {
       return $a['Win'] <=> $b['Win'];
     });
 
-    echo json_encode($data['classement']);
+    $data['classement'] = array_reverse($data['classement']);
+
+    echo json_encode($data);
 
   }
 

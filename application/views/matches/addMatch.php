@@ -77,8 +77,12 @@
         <hr>
         <div class="form-row">          
           <div class="col">
-            <label for="DateJoue">Score du joueur 1 <?= form_error('DateJoue', '<span class="form-error"> - ', '</span>'); ?></label>
-            <input type="date" class="form-control" name="DateJoue">
+            <label for="IdEvent">Événement <?= form_error('IdEvent', '<span class="form-error"> - ', '</span>'); ?></label>
+            <select name="IdEvent" class="select-chosen form-control">
+              <?php foreach($events as $event) : ?>
+                  <option value="<?= $event->Id ?>"><?= $event->Nom; ?></option>
+              <?php endforeach; ?>
+            </select>
           </div>
         </div>
 

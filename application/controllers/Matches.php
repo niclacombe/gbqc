@@ -19,6 +19,9 @@ class Matches extends CI_Controller {
     $this->load->model('guildes_model');
     $data['guildes'] = $this->guildes_model->getGuildes();
 
+    $this->load->model('events_model');
+    $data['events'] = $this->guildes_model->getEvents();
+
     $this->template->load('matches/addMatch', $data);
   }
 

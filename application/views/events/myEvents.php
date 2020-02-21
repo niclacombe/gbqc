@@ -118,26 +118,8 @@
               <th>V</th>
               <th>D</th>
               <th>PJ</th>
-            </tr>
-            <tr>
-              <td>adsf</td>
-              <td>fasd</td>
-              <td>asdf</td>
-              <td>adsf</td>
-            </tr>
-            <tr>
-              <td>adsf</td>
-              <td>fasd</td>
-              <td>asdf</td>
-              <td>adsf</td>
-            </tr>
-            <tr>
-              <td>adsf</td>
-              <td>fasd</td>
-              <td>asdf</td>
-              <td>adsf</td>
-            </tr>
-            
+              <th>Équipe</th>
+            </tr>            
           </table>
         </div>
       </div>

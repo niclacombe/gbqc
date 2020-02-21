@@ -13,6 +13,7 @@ class Matches_model extends CI_Model {
       'Score2' => $this->input->post('Score2'),
       'ListIndiv1' => $this->input->post('ListIndiv1'),
       'ListIndiv2' => $this->input->post('ListIndiv2'),
+      'IdEvent' => $this->input->post('IdEvent'),
       'DateJoue' => $this->input->post('DateJoue'),
     );
 

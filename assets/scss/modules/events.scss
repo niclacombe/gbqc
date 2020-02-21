@@ -1,9 +1,16 @@
 .my-events{
+  .guildIcon{
+    width: 2rem;
+  }
   &__view{
     &__forms{
       .manageForm{
         display: none;
       }
+    }
+
+    &__details{
+      display: none;
     }
   }
 }

@@ -60,10 +60,9 @@ class Events_model extends CI_Model {
 
   public function getParticipatingEvents($idIndiv){
 
-    $this->db->like('IdIndividus', ','.$idIndiv . ',', 'BOTH');
-    $this->db->or_like('IdIndividus', ','.$idIndiv, 'BOTH');
-    $this->db->or_like('IdIndividus', $idIndiv . ',', 'BOTH');
-    $this->db->where('IdCreateur !=', $idIndiv);
+    $where = "(IdIndividus LIKE '%$idIndiv%' OR IdIndividus LIKE '$idIndiv%' OR IdIndividus LIKE '%$idIndiv' ) AND IdCreateur != $idIndiv";    
+    $this->db->where($where);
+    
     $this->db->order_by('DateFin', 'DESC');
     $this->db->order_by('Nom', 'ASC');
 

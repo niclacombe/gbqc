@@ -101,6 +101,8 @@ $(document).ready(function() {
     var idEvent = $(this).attr('data-idEvent'),
         target = '#viewEvent';
 
+    $(target).hide();
+
     getClassement(idEvent, target);
   })
 
@@ -151,7 +153,8 @@ function getClassement(idEvent, target){
           html = '';
 
       
-      html += "<h3>NOM DE L'ÉVÉNEMENT</h3>";
+      html += "<h3>" + data.event.Nom + "</h3>";
+      html += "<h4>" + data.event.Type + "</h4>";
       html += "<h4>Classement</h4>";
 
       html += '<table class="table table-responsive table-striped">';
@@ -160,15 +163,18 @@ function getClassement(idEvent, target){
       html += "<th>V</th>";
       html += "<th>D</th>";
       html += "<th>PJ</th>";
+      html += "<th>Équipe</th>";
       html += "</tr>";
 
-      html += "<tr>";
-      html += "<th>Nom</th>";
-      html += "<th>V</th>";
-      html += "<th>D</th>";
-      html += "<th>PJ</th>";
-      html += "</tr>";
-
+      data.classement.forEach(function(item, index){
+        html += "<tr>";
+        html += "<td>" + item.Individu + "</td>";
+        html += "<td>" + item.Win + "</td>";
+        html += "<td>" + item.Lost + "</td>";
+        html += "<td>" + item.GP + "</td>";
+        html += '<td><img class="guildIcon" src="/assets/img/guildes/' + item.Team +'.svg"></td>';
+        html += "</tr>";
+      });
             
       html += "</table>";
       
