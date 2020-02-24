@@ -28,6 +28,7 @@ class Matches extends CI_Controller {
   public function addMatch(){
     $this->load->library('form_validation');
 
+    $this->form_validation->set_rules('IdIndiv1', 'Joueur 1', 'required');
     $this->form_validation->set_rules('IdIndiv2', 'Joueur 2', 'required');
 
     $this->form_validation->set_rules('IdGuilde1', 'Guilde du joueur 1', 'required');

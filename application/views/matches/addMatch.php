@@ -9,11 +9,16 @@
     <div class="login-form addMatch__form col-12 col-md-6">
       <?= form_open('matches/addMatch'); ?>
         <div class="form-row">
-          <div class="col">
-            <label for="Nom">Joueur 1 </label>
-            <input type="hidden" class="form-control" name="IdIndiv1" value="<?= $this->session->userdata('indiv')->Id; ?>">
-            <input type="text" disabled="disabled" class="form-control" name="" value="<?= $this->session->userdata('indiv')->Prenom .' ' . strtoupper($this->session->userdata('indiv')->Nom); ?>">
-          </div>
+          <div class="col">            
+            <label for="IdIndiv1">Joueur 1 <?= form_error('IdIndiv1', '<span class="form-error"> - ', '</span>'); ?></label>
+            <select name="IdIndiv1" class="select-chosen form-control">
+              <?php foreach($individus as $individu) : ?>
+                <?php if( $individu->Id != $this->session->userdata('indiv')->Id) : ?>
+                  <option value="<?= $individu->Id ?>"><?= $individu->Prenom .' ' .strtoupper($individu->Nom); ?></option>
+                <?php endif; ?>
+              <?php endforeach; ?>
+            </select>
+          </div>  
 
           <div class="col">            
             <label for="IdIndiv2">Joueur 2 <?= form_error('IdIndiv2', '<span class="form-error"> - ', '</span>'); ?></label>
