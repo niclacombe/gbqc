@@ -21,6 +21,8 @@ $(document).ready(function() {
     }
   });
 
+  alert('ASGSDFG');
+
   // Closes responsive menu when a scroll trigger link is clicked
   $('.js-scroll-trigger').click(function() {
     $('.navbar-collapse').collapse('hide');
@@ -49,7 +51,32 @@ $(document).ready(function() {
     adaptiveHeight: true,
     dots: false,
     slidesToShow: 3,
-    slidesToScroll: 3
+    slidesToScroll: 3,
+    responsive: [
+    {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 3.1,
+        slidesToScroll: 3,
+        infinite: true,
+        dots: true
+      }
+    },
+    {
+      breakpoint: 600,
+      settings: {
+        slidesToShow: 2.1,
+        slidesToScroll: 2
+      }
+    },
+    {
+      breakpoint: 480,
+      settings: {
+        slidesToShow: 1.1,
+        slidesToScroll: 1
+      }
+    }
+  ]
   });
 
   /* DISPLAY TEAM LIST FOR A MATCH*/

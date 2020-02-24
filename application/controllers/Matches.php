@@ -20,7 +20,7 @@ class Matches extends CI_Controller {
     $data['guildes'] = $this->guildes_model->getGuildes();
 
     $this->load->model('events_model');
-    $data['events'] = $this->guildes_model->getEvents();
+    $data['events'] = $this->events_model->getEvents();
 
     $this->template->load('matches/addMatch', $data);
   }
@@ -115,8 +115,8 @@ class Matches extends CI_Controller {
         'DateJoue' => $m->DateJoue,
         'IdIndiv1' => $indiv1,
         'IdIndiv2' => $indiv2,
-        'IdGuilde1' => $guilde2,
-        'IdGuilde2' => $guilde1,
+        'IdGuilde1' => $guilde1,
+        'IdGuilde2' => $guilde2,
         'ListIndiv1' => $this->listGenerator($m->ListIndiv1),
         'ListIndiv2' => $this->listGenerator($m->ListIndiv2),
         'Score1' => $m->Score1,
